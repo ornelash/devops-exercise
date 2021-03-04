@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops
+spec:
+  selector:
+    matchLabels:
+      app: devops
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: devops
+    spec:
+      containers:
+      - name: devops
+        image: ornelash/devops-exercise:latest
+        ports:
+        - containerPort: 5000
+---          
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops
+spec:
+  selector:
+    app: devops
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer
+  
