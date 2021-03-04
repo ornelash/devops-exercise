@@ -1,10 +1,18 @@
 from flask import Flask
+from flask import request
 
 app = Flask(__name__)
+count = 0
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def hello():
-    return "Hello World!!!"
+    global count
+    
+    if request.method == 'POST':
+       count += 1
+       return "Ok"
+    else:
+        return "POST requests: %i" % count
 
 
 if __name__ == "__main__":
